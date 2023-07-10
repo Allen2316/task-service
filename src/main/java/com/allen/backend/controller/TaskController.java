@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping(value = "/api/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TaskController {
     private final TaskService taskService;
 
@@ -26,9 +26,24 @@ public class TaskController {
         return ResponseEntity.ok(this.taskService.getAll());
     }
 
-    @PostMapping(headers = "Accept=application/json;charset=UTF-8", value = "/register")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<TaskDto> getById(@PathVariable Long id){
+        return ResponseEntity.ok(this.taskService.getById(id));
+    }
+
+    @PostMapping(headers = "Accept=application/json;charset=UTF-8")
     public ResponseEntity<TaskDto> create(@RequestBody @Validated TaskDto taskDto) {
         log.info("Creado la taskDto = "+taskDto);
         return new ResponseEntity<>(this.taskService.create(taskDto), HttpStatus.CREATED);
     }
+    @PutMapping(headers = "Accept=application/json;charset=UTF-8", value = "/{id}")
+    public ResponseEntity<TaskDto> update(@PathVariable Long id, TaskDto taskDto){
+        return new ResponseEntity<>(this.taskService.update(id, taskDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Long> deleteById(@PathVariable Long id){
+        return ResponseEntity.ok(this.taskService.deleteById(id));
+    }
+
 }
