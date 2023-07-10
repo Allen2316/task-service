@@ -1,4 +1,4 @@
-package com.allen.portafolio.domain;
+package com.allen.backend.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.allen.portafolio.domain.dto;
+package com.allen.backend.domain.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;

@@ -5,6 +5,7 @@
     |-> dto
 |-> exceptions
 |-> repository
+    |-> impl (para patrones DAO - customizacion de consultas)
 |-> service
     |-> impl
 |-> util
