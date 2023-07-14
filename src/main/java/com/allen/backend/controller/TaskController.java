@@ -27,22 +27,23 @@ public class TaskController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TaskDto> getById(@PathVariable Long id){
+    public ResponseEntity<TaskDto> getById(@PathVariable Long id) {
         return ResponseEntity.ok(this.taskService.getById(id));
     }
 
     @PostMapping(headers = "Accept=application/json;charset=UTF-8")
     public ResponseEntity<TaskDto> create(@RequestBody @Validated TaskDto taskDto) {
-        log.info("Creado la taskDto = "+taskDto);
+        log.info("Creado la taskDto = " + taskDto);
         return new ResponseEntity<>(this.taskService.create(taskDto), HttpStatus.CREATED);
     }
+
     @PutMapping(headers = "Accept=application/json;charset=UTF-8", value = "/{id}")
-    public ResponseEntity<TaskDto> update(@PathVariable Long id, TaskDto taskDto){
-        return new ResponseEntity<>(this.taskService.update(id, taskDto), HttpStatus.OK);
+    public ResponseEntity<TaskDto> update(@PathVariable Long id, TaskDto taskDto) {
+        return new ResponseEntity<>(this.taskService.updateById(id, taskDto), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Long> deleteById(@PathVariable Long id){
+    public ResponseEntity<Long> deleteById(@PathVariable Long id) {
         return ResponseEntity.ok(this.taskService.deleteById(id));
     }
 

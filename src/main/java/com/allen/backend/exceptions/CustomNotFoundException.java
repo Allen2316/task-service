@@ -1,6 +1,10 @@
 package com.allen.backend.exceptions;
 
-public class CustomNotFoundException extends RuntimeException{
+import java.io.Serializable;
+
+public class CustomNotFoundException extends RuntimeException implements Serializable {
+
+    public static final Long serialVersionUID = 1L;
     public CustomNotFoundException(String message) {
         super(message);
     }

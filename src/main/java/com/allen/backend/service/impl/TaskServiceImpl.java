@@ -3,6 +3,7 @@ package com.allen.backend.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.allen.backend.domain.Category;
 import com.allen.backend.domain.dto.TaskDto;
 import com.allen.backend.exceptions.CustomNotFoundException;
 import com.allen.backend.util.Mapper;
@@ -41,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskDto update(long id, TaskDto taskDto) {
+    public TaskDto updateById(long id, TaskDto taskDto) {
         Task task = getEntityById(id);
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
@@ -54,6 +55,11 @@ public class TaskServiceImpl implements TaskService {
         getEntityById(id);
         this.taskRepository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public List<TaskDto> findByCategory(Category category) {
+        return null;
     }
 
 
