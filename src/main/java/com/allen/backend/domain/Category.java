@@ -1,12 +1,14 @@
 package com.allen.backend.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "category")
-@Builder
+@AllArgsConstructor @NoArgsConstructor @Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
