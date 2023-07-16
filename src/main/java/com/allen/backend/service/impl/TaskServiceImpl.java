@@ -47,6 +47,7 @@ public class TaskServiceImpl implements TaskService {
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
         task.setCompleted(taskDto.isCompleted());
+        task.setCategory(taskDto.getCategory());
         return converterEntityToDto(this.taskRepository.save(task));
     }
 
@@ -59,7 +60,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> findByCategory(Category category) {
-        return null;
+        List<Task> tasks = this.taskRepository.findByCategory(category);
+        return tasks.stream().map(this::converterEntityToDto).toList();
     }
 
 

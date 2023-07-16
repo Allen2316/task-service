@@ -19,16 +19,14 @@ public class Task {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
     private String description;
     private boolean completed;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "hanlder"})
     private Category category;
 
-    private Long userId;
 
 }

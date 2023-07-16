@@ -1,7 +1,9 @@
 package com.allen.backend.service.impl;
 
 import com.allen.backend.domain.Category;
+import com.allen.backend.domain.Task;
 import com.allen.backend.domain.dto.CategoryDto;
+import com.allen.backend.domain.dto.TaskDto;
 import com.allen.backend.exceptions.CustomNotFoundException;
 import com.allen.backend.repository.CategoryRepository;
 import com.allen.backend.service.CategoryService;
@@ -23,6 +25,12 @@ public class CategoryImpl implements CategoryService {
         return converterEntityToDto(category);
     }
 
+    @Override
+    public List<CategoryDto> findByUserId(long userId) {
+        List<Category> tasks = this.categoryRepository.findByUserId(userId);
+        return tasks.stream().map(this::converterEntityToDto).toList();
+    }
+
 
     @Override
     public List<CategoryDto> getAll() {
@@ -40,6 +48,7 @@ public class CategoryImpl implements CategoryService {
     public CategoryDto updateById(long id, CategoryDto categoryDto) {
         Category category = getEntityById(id);
         category.setName(categoryDto.getName());
+        category.setUserId(categoryDto.getUserId());
         return converterEntityToDto(this.categoryRepository.save(category));
     }
 

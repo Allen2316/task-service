@@ -56,9 +56,10 @@ public interface TaskService {
 
     /**
      * Obtener las tareas por categoria
-     * @param category Objeto que contiene la informacion de categoria a buscar
+     * @param id ID de categoria a buscar
      * @return Lista de tareas con la misma categoria
      */
     List<TaskDto> findByCategory(Category category);
+
 
 }

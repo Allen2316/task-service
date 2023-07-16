@@ -51,4 +51,11 @@ public interface CategoryService {
      */
     Long deleteById(long id);
 
+    /**
+     * Obtener las tareas por usuario
+     * @param userId ID del usuario para otbener las tareas
+     * @return La lista de tareas pertenecientes a un usuario
+     */
+    List<CategoryDto> findByUserId(long userId);
+
 }

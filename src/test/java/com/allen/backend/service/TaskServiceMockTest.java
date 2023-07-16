@@ -39,7 +39,6 @@ public class TaskServiceMockTest {
                 .completed(false)
                 .description("Es la descripcion")
                 .name("Task1")
-                .userId(1L)
                 .build();
 
         Mockito.when(taskRepositoryMock.findById(1L)).thenReturn(Optional.of(taskEntity));
@@ -61,7 +60,6 @@ public class TaskServiceMockTest {
                 .completed(false)
                 .description("Es la descripcion editada")
                 .name("Task1 Updated")
-                .userId(1L)
                 .build();
         TaskDto taskDto = Mapper.modelMapper().map(task, TaskDto.class);
 
