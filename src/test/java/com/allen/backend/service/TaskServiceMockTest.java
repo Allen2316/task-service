@@ -6,6 +6,7 @@ import com.allen.backend.domain.Task;
 import com.allen.backend.domain.dto.TaskDto;
 import com.allen.backend.repository.TaskRepository;
 import com.allen.backend.service.impl.TaskServiceImpl;
+import com.allen.backend.util.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ public class TaskServiceMockTest {
                 .build();
 
         Mockito.when(taskRepositoryMock.findById(1L)).thenReturn(Optional.of(taskEntity));
-        Mockito.when(taskRepositoryMock.save(taskEntity)).thenReturn(taskEntity);
+
     }
 
     @Test
@@ -52,8 +53,9 @@ public class TaskServiceMockTest {
     }
 
     @Test
-    public void whenValidUpdateTask_ThenReturnNewTask(){
-        TaskDto taskDto = TaskDto.builder()
+    public void whenValidUpdateTask_ThenReturnNewTask() {
+
+        Task task = Task.builder()
                 .id(1L)
                 .category(Category.builder().id(1L).build())
                 .completed(false)
@@ -61,6 +63,9 @@ public class TaskServiceMockTest {
                 .name("Task1 Updated")
                 .userId(1L)
                 .build();
+        TaskDto taskDto = Mapper.modelMapper().map(task, TaskDto.class);
+
+        Mockito.when(taskRepositoryMock.save(task)).thenAnswer(ele -> ele.getArgument(0));
         log.info("TaskDto " + taskDto);
 
         TaskDto newTask = taskService.updateById(taskDto.getId(), taskDto);
