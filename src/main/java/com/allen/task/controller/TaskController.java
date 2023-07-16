@@ -81,12 +81,13 @@ public class TaskController {
         }
     }
 
-    @GetMapping(value = "/{name}")
-    public ResponseEntity<TaskDto> findByName(@PathVariable String name) {
+    @GetMapping(value = "/name")
+    public ResponseEntity<TaskDto> findByName(@RequestParam(name = "name") String name) {
+
         try {
             TaskDto taskDto = this.taskService.findByName(name);
             return ResponseEntity.ok(taskDto);
-        } catch (CustomNotFoundException ex) {
+        } catch (Exception ex) {
             log.info("Error ==== ", ex);
             return ResponseEntity.notFound().build();
         }

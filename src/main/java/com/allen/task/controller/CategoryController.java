@@ -33,8 +33,8 @@ public class CategoryController {
         }
     }
 
-    @GetMapping()
-    public ResponseEntity<List<CategoryDto>> getAll(@PathVariable(value = "/{id}", required = false) Long id) {
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> getAll(@RequestParam(value = "id", required = false) Long id) {
         List<CategoryDto> categories;
         if(id == null){
             categories = this.categoryService.getAll();
@@ -78,11 +78,11 @@ public class CategoryController {
         }
     }
 
-    @GetMapping(value = "/{name}")
-    public ResponseEntity<CategoryDto> findByName(@PathVariable String name) {
+    @GetMapping(value = "/name")
+    public ResponseEntity<CategoryDto> findByName(@RequestParam(name = "name") String name) {
         try {
             return ResponseEntity.ok(this.categoryService.findByName(name));
-        }catch (CustomNotFoundException ex){
+        }catch (Exception ex){
             log.info("Error ==== ", ex);
             return ResponseEntity.notFound().build();
         }
