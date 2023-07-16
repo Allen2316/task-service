@@ -50,7 +50,7 @@ public class TaskController {
             TaskDto taskDto = this.taskService.getById(id);
             return ResponseEntity.ok(taskDto);
         } catch (CustomNotFoundException ex) {
-            log.info("Error ==== ", ex);
+            log.info("Errorx ==== ", ex);
             return ResponseEntity.notFound().build();
         }
     }
