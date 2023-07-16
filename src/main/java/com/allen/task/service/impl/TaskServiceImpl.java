@@ -1,16 +1,17 @@
-package com.allen.backend.service.impl;
+package com.allen.task.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.allen.backend.domain.dto.TaskDto;
-import com.allen.backend.exceptions.CustomNotFoundException;
-import com.allen.backend.util.Mapper;
+import com.allen.task.domain.Category;
+import com.allen.task.domain.dto.TaskDto;
+import com.allen.task.exceptions.CustomNotFoundException;
+import com.allen.task.util.Mapper;
 import org.springframework.stereotype.Service;
 
-import com.allen.backend.domain.Task;
-import com.allen.backend.repository.TaskRepository;
-import com.allen.backend.service.TaskService;
+import com.allen.task.domain.Task;
+import com.allen.task.repository.TaskRepository;
+import com.allen.task.service.TaskService;
 
 import lombok.AllArgsConstructor;
 
@@ -36,16 +37,21 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDto create(TaskDto taskDto) {
-        Task task = converterDtoToEntity(taskDto);
+        Task task = this.taskRepository.findByName(taskDto.getName());
+        if (task != null) {
+            return converterEntityToDto(task);
+        }
+        task = converterDtoToEntity(taskDto);
         return converterEntityToDto(this.taskRepository.save(task));
     }
 
     @Override
-    public TaskDto update(long id, TaskDto taskDto) {
+    public TaskDto updateById(long id, TaskDto taskDto) {
         Task task = getEntityById(id);
         task.setName(taskDto.getName());
         task.setDescription(taskDto.getDescription());
         task.setCompleted(taskDto.isCompleted());
+        task.setCategory(taskDto.getCategory());
         return converterEntityToDto(this.taskRepository.save(task));
     }
 
@@ -54,6 +60,17 @@ public class TaskServiceImpl implements TaskService {
         getEntityById(id);
         this.taskRepository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public List<TaskDto> findByCategory(Category category) {
+        List<Task> tasks = this.taskRepository.findByCategory(category);
+        return tasks.stream().map(this::converterEntityToDto).toList();
+    }
+
+    @Override
+    public TaskDto findByName(String name) {
+        return converterEntityToDto(this.taskRepository.findByName(name));
     }
 
 

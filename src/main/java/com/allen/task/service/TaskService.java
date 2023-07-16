@@ -1,9 +1,9 @@
-package com.allen.backend.service;
+package com.allen.task.service;
 
 import java.util.List;
 
-import com.allen.backend.domain.Task;
-import com.allen.backend.domain.dto.TaskDto;
+import com.allen.task.domain.Category;
+import com.allen.task.domain.dto.TaskDto;
 
 /**
  * Gestionar CRUD de Tareas
@@ -43,7 +43,7 @@ public interface TaskService {
      * @param taskDto Objeto que contiene la información de la Tarea
      * @return La Tarea actualizada
      */
-    TaskDto update(long id, TaskDto taskDto);
+    TaskDto updateById(long id, TaskDto taskDto);
 
 
     /**
@@ -53,5 +53,19 @@ public interface TaskService {
      * @return ID del registro  que se eliminó
      */
     Long deleteById(long id);
+
+    /**
+     * Obtener las tareas por categoria
+     * @param category Objeto de categoria a buscar
+     * @return Lista de tareas con la misma categoria
+     */
+    List<TaskDto> findByCategory(Category category);
+
+    /**
+     * Buscar tarea por nombre
+     * @param name El nombre de la tarea a buscar
+     * @return La tarea con el nombre buscado
+     */
+    TaskDto findByName(String name);
 
 }
