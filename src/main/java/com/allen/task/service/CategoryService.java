@@ -1,6 +1,6 @@
-package com.allen.backend.service;
+package com.allen.task.service;
 
-import com.allen.backend.domain.dto.CategoryDto;
+import com.allen.task.domain.dto.CategoryDto;
 
 import java.util.List;
 
@@ -52,10 +52,17 @@ public interface CategoryService {
     Long deleteById(long id);
 
     /**
-     * Obtener las tareas por usuario
+     * Obtener las categorias por usuario
      * @param userId ID del usuario para otbener las tareas
      * @return La lista de tareas pertenecientes a un usuario
      */
     List<CategoryDto> findByUserId(long userId);
+
+    /**
+     * Obtener las categorias por nombre
+     * @param name Nombre de la categoria
+     * @return La categoría con ese nombre
+     */
+    CategoryDto findByName(String name);
 
 }

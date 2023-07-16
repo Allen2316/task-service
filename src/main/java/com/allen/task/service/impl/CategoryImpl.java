@@ -1,13 +1,11 @@
-package com.allen.backend.service.impl;
+package com.allen.task.service.impl;
 
-import com.allen.backend.domain.Category;
-import com.allen.backend.domain.Task;
-import com.allen.backend.domain.dto.CategoryDto;
-import com.allen.backend.domain.dto.TaskDto;
-import com.allen.backend.exceptions.CustomNotFoundException;
-import com.allen.backend.repository.CategoryRepository;
-import com.allen.backend.service.CategoryService;
-import com.allen.backend.util.Mapper;
+import com.allen.task.domain.Category;
+import com.allen.task.domain.dto.CategoryDto;
+import com.allen.task.exceptions.CustomNotFoundException;
+import com.allen.task.repository.CategoryRepository;
+import com.allen.task.service.CategoryService;
+import com.allen.task.util.Mapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +29,11 @@ public class CategoryImpl implements CategoryService {
         return tasks.stream().map(this::converterEntityToDto).toList();
     }
 
+    @Override
+    public CategoryDto findByName(String name) {
+        return converterEntityToDto(this.categoryRepository.findByName(name));
+    }
+
 
     @Override
     public List<CategoryDto> getAll() {
@@ -40,7 +43,13 @@ public class CategoryImpl implements CategoryService {
 
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
-        Category category = converterDtoToEntity(categoryDto);
+
+        Category category = this.categoryRepository.findByName(categoryDto.getName());
+        if (category != null) {
+            return converterEntityToDto(category);
+        }
+        category = converterDtoToEntity(categoryDto);
+
         return converterEntityToDto(this.categoryRepository.save(category));
     }
 

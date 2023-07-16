@@ -1,6 +1,6 @@
-package com.allen.backend.controller.exceptions;
+package com.allen.task.controller.exceptions;
 
-import com.allen.backend.util.Mapper;
+import com.allen.task.util.Mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Builder;
 import lombok.Data;

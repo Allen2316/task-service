@@ -1,4 +1,4 @@
-package com.allen.backend.exceptions;
+package com.allen.task.exceptions;
 
 import java.io.Serializable;
 

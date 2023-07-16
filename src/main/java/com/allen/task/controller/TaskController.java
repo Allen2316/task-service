@@ -1,19 +1,15 @@
-package com.allen.backend.controller;
+package com.allen.task.controller;
 
-import com.allen.backend.controller.exceptions.ErrorMessage;
-import com.allen.backend.domain.Category;
-import com.allen.backend.domain.Task;
-import com.allen.backend.domain.dto.TaskDto;
-import com.allen.backend.exceptions.CustomNotFoundException;
-import com.allen.backend.service.TaskService;
-import com.allen.backend.util.Mapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.allen.task.controller.exceptions.ErrorMessage;
+import com.allen.task.domain.Category;
+import com.allen.task.domain.dto.TaskDto;
+import com.allen.task.exceptions.CustomNotFoundException;
+import com.allen.task.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,10 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -82,6 +75,17 @@ public class TaskController {
     public ResponseEntity<Long> deleteById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.taskService.deleteById(id));
+        } catch (CustomNotFoundException ex) {
+            log.info("Error ==== ", ex);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(value = "/{name}")
+    public ResponseEntity<TaskDto> findByName(@PathVariable String name) {
+        try {
+            TaskDto taskDto = this.taskService.findByName(name);
+            return ResponseEntity.ok(taskDto);
         } catch (CustomNotFoundException ex) {
             log.info("Error ==== ", ex);
             return ResponseEntity.notFound().build();

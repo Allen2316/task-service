@@ -1,10 +1,9 @@
-package com.allen.backend.controller;
+package com.allen.task.controller;
 
-import com.allen.backend.controller.exceptions.ErrorMessage;
-import com.allen.backend.domain.dto.CategoryDto;
-import com.allen.backend.domain.dto.TaskDto;
-import com.allen.backend.exceptions.CustomNotFoundException;
-import com.allen.backend.service.CategoryService;
+import com.allen.task.controller.exceptions.ErrorMessage;
+import com.allen.task.domain.dto.CategoryDto;
+import com.allen.task.exceptions.CustomNotFoundException;
+import com.allen.task.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,7 +31,6 @@ public class CategoryController {
             log.info("Error ==== ", ex);
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping()
@@ -55,6 +52,7 @@ public class CategoryController {
 
     @PostMapping(headers = "Accept=application/json;charset=UTF-8")
     public ResponseEntity<CategoryDto> create(@RequestBody @Valid CategoryDto categoryDto, BindingResult result) {
+
         if (result.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessage.formatMessage(result));
         }
@@ -74,6 +72,16 @@ public class CategoryController {
     public ResponseEntity<Long> deleteById(long id) {
         try {
             return ResponseEntity.ok(this.categoryService.deleteById(id));
+        }catch (CustomNotFoundException ex){
+            log.info("Error ==== ", ex);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping(value = "/{name}")
+    public ResponseEntity<CategoryDto> findByName(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(this.categoryService.findByName(name));
         }catch (CustomNotFoundException ex){
             log.info("Error ==== ", ex);
             return ResponseEntity.notFound().build();

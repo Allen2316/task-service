@@ -27,6 +27,8 @@
 #Application Configuration
 server:
   port: 8091
+  error:
+    include-stacktrace: never
 
 spring:
   datasource:

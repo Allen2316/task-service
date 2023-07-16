@@ -10,10 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.allen</groupId>
-    <artifactId>ToDoBackend</artifactId>
+    <artifactId>task-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ToDoBackend</name>
-    <description>Demo project for Spring Boot</description>
+    <name>task-service</name>
+    <description>Microservices of Taks</description>
     <properties>
         <java.version>17</java.version>
     </properties>

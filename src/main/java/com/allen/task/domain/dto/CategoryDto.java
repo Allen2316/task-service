@@ -1,4 +1,4 @@
-package com.allen.backend.domain.dto;
+package com.allen.task.domain.dto;
 
 
 import jakarta.validation.constraints.NotEmpty;

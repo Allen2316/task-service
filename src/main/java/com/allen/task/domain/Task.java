@@ -1,4 +1,4 @@
-package com.allen.backend.domain;
+package com.allen.task.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,9 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "category")
-@AllArgsConstructor @NoArgsConstructor @Builder
-public class Category {
+@Entity(name = "task")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -17,6 +20,12 @@ public class Category {
 
     @Column(unique = true, nullable = false)
     private String name;
-    @Column(nullable = false)
-    private Long userId;
+    private String description;
+    private boolean completed;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+
 }

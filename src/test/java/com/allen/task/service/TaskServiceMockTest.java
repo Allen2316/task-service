@@ -1,12 +1,12 @@
-package com.allen.backend.service;
+package com.allen.task.service;
 
-import com.allen.backend.domain.Category;
-import com.allen.backend.domain.Task;
+import com.allen.task.domain.Category;
+import com.allen.task.domain.Task;
 
-import com.allen.backend.domain.dto.TaskDto;
-import com.allen.backend.repository.TaskRepository;
-import com.allen.backend.service.impl.TaskServiceImpl;
-import com.allen.backend.util.Mapper;
+import com.allen.task.domain.dto.TaskDto;
+import com.allen.task.repository.TaskRepository;
+import com.allen.task.service.impl.TaskServiceImpl;
+import com.allen.task.util.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
