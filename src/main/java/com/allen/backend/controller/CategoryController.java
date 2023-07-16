@@ -25,6 +25,10 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAll() {
+        List<CategoryDto> categories = this.categoryService.getAll();
+        if (categories.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(this.categoryService.getAll());
     }
 

@@ -3,9 +3,10 @@ package com.allen.backend.domain.dto;
 import com.allen.backend.domain.Category;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Builder @AllArgsConstructor @NoArgsConstructor
 public class TaskDto {
     private Long id;
 

@@ -1,5 +1,6 @@
 package com.allen.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,12 +9,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity(name = "task")
-@AllArgsConstructor @NoArgsConstructor @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)    
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(unique = true)
@@ -23,7 +26,9 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "hanlder"})
     private Category category;
+
     private Long userId;
 
 }

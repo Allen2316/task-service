@@ -23,7 +23,11 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDto>> getAll() {
-        return ResponseEntity.ok(this.taskService.getAll());
+        List<TaskDto> tasks = this.taskService.getAll();
+        if (tasks.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(tasks);
     }
 
     @GetMapping(value = "/{id}")
